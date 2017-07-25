@@ -49,11 +49,9 @@ def get_cities():
 				breakdown = sc['score_breakdown']
 				for s in breakdown:
 					cust_type = s['customer_type']
-					print(cust_type)
 					for q in s['question']:
 						if q['question'] == 'total':
 							wifi = total = q['score']
-							print(total)
 						if q['question'] == 'hotel_clean':
 							clean = q['score']
 						if q['question'] == 'hotel_comfort':
