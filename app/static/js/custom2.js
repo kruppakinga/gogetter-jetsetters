@@ -17,18 +17,65 @@ $(function(){
 		getHotelById(e);
 	});
 
-	loadView();
+	loadView2();
 
 });
 
-function loadView() {
+function loadView2() {
     var self = this;
+
+    getHotels();
+    compareHotels();
 
     console.log('inside loadView');
 };
 
-function clickHandler() {
+function compareHotels() {
 	console.log('inside click handler');
+
+	//GET all hotels
+    var url = "/compare?1=10004&2=10064&3=10023&checkin=2017-12-05&checkout=2017-12-06";
+    var settings = {
+        cache: true
+        , contentType: "application/json; charset=utf-8" 
+        , dataType: "json"
+        , success: compareHotelsOnSuccess 
+        , error: compareHotelsOnError
+        , type: "GET"
+    };
+    $.ajax(url, settings);
+};
+
+function compareHotelsOnSuccess(data) {
+	console.log('inside compareHotelsOnSuccess. hotels: ', data);
+
+	var hotelsArray = data;
+
+	//column-
+	//img-carousel-
+	//img-
+	//description-
+	//pro-
+	//con-
+
+	for(var i = 0; i < hotelsArray.length; i++){
+		$("#img-" + i).attr('id', "#img-" + hotelsArray[i].name);
+		getHotelPhotosById(hotelsArray[i].photos_url);
+	};
+
+	// for(var i = 0; i < hotelsArray.length; i++){
+	// 	$("#column-" + i).find('h4').text(hotelsArray[i].name);
+	// 	getHotelPhotosById(hotelsArray[i].photos_url);
+	// 	console.log('currentIndex');
+	// };
+
+};
+
+function compareHotelsOnError() {
+	console.log('inside getHotelsOnError');
+};
+
+function getHotels() {
 
 	//GET all hotels
     var url = "/hotels";
@@ -44,9 +91,9 @@ function clickHandler() {
 };
 
 function getHotelsOnSuccess(data) {
-	console.log('inside getHotelsOnSuccess. hotels: ', data);
+	//console.log('inside getHotelsOnSuccess. hotels: ', data);
 
-	$('.test').text(data[0].name);
+	//$('.test').text(data[0].name);
 };
 
 function getHotelsOnError() {
@@ -54,7 +101,6 @@ function getHotelsOnError() {
 };
 
 function getHotelById() {
-	console.log('inside getHotelById');
 
 	var id = "10004";
 	//"10007"
@@ -75,8 +121,8 @@ function getHotelById() {
 
 function getHotelByIdOnSuccess(data) {
 	console.log('inside getHotelByIdOnSuccess. hotel data.name: ', data[0].name);
-	console.log(data[0]);
-	console.log(data[0].photos_url);
+	// console.log(data[0]);
+	// console.log(data[0].photos_url);
 	$("#column-0").find('h4').text(data[0].name);
 
 	var photosUrl = data[0].photos_url;
@@ -89,7 +135,7 @@ function getHotelByIdOnSuccess(data) {
 	var descriptionArray = description.split(".");
 	var descriptionFirstSentence = descriptionArray[0]; 
 
-	console.log('descriptionArray[0]', descriptionArray[0]);
+	//console.log('descriptionArray[0]', descriptionArray[0]);
 
 	$('#description-0').html(descriptionFirstSentence);
 };
@@ -98,12 +144,13 @@ function getHotelByIdOnError() {
 	console.log('inside getHotelByIdOnError');
 };
 
-function getHotelPhotosById(photosUrl) {
-	console.log('inside getHotelById');
+function getHotelPhotosById(photosUrl, i) {
 
-	var id = "10004";
+	//var id = "10004";
 	//"10007"
 	//"10008"
+
+	console.log(photosUrl);
 
 	//GET photos
     var url = photosUrl;
@@ -119,11 +166,11 @@ function getHotelPhotosById(photosUrl) {
 };
 
 function getHotelPhotosByIdOnSuccess(data) {
-	console.log('inside getHotelPhotosByIdOnSuccess. hotel photos: ', data);
-	console.log(data);
-	console.log('photo url', data[0].url);
+	// console.log('inside getHotelPhotosByIdOnSuccess. hotel photos: ', data);
+	// console.log(data);
+	// console.log('photo url', data[0].url);
 
-	$("#img-0").attr('src', data[0].url);
+	$('.img-carousel-' + currentIndex).find("#img-" + currentIndex).attr('src', data[0].url);
 };
 
 function getHotelPhotosByIdOnError() {
@@ -131,7 +178,6 @@ function getHotelPhotosByIdOnError() {
 };
 
 function getHotelReviewsById(reviewsUrl) {
-	console.log('inside getHotelById');
 
 	//GET reviews
     var url = reviewsUrl;

@@ -22,11 +22,11 @@
                             <header class="title-header">
                                 <h4>Name of Property</h4>
                             </header>
-                            <div class="img-carousel">
+                            <div class="img-carousel-{{number}}">
                                 <div id="carouselExampleControls" class="carousel slide" data-ride="">
                                     <div class="carousel-inner" role="listbox">
                                         <div class="carousel-item active">
-                                            <img style="height: 250px; width: 300px;" id="img-0" class="d-block img-fluid" src="//placehold.it/300x250" alt="First slide">
+                                            <img style="height: 250px; width: 300px;" id="img-{{number}}" class="d-block img-fluid" src="//placehold.it/300x250" alt="First slide">
                                         </div>
                                         <div class="carousel-item">
                                             <img class="d-block img-fluid" src="//placehold.it/300x250" alt="Second slide">
@@ -47,7 +47,7 @@
                             </div>
                             <div class="card-block">
                                 <div>
-                                    <p id="description-0" class="tagline card-text text-xs-center"></p>
+                                    <p id="description-{{number}}" class="tagline card-text text-xs-center"></p>
                                 </div>
                                 <br />
                                 <div>
@@ -80,13 +80,13 @@
                                         <span>
                                             Pro:
                                         </span>
-                                        <span id="pro-0"></span>
+                                        <span id="pro-{{number}}"></span>
                                     </p>
                                 </div>
                                 <br />
                                 <div>
                                     <p class="tagline card-text text-xs-center">
-                                        <span>Con: </span><span id="con-0"></span>
+                                        <span>Con: </span><span id="con-{{number}}"></span>
                                     </p>
                                 </div>
                                 <br />
