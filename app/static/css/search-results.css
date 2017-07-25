@@ -1,0 +1,23 @@
+/*Page Resets*/
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
+.search-results-page {
+  max-width: 1280px;
+}
+
+.search-results-container {
+  width: 1280px;
+  height: 100%;
+}
+
+.navigation-image {
+  width: 1259px;
+}
+
+.searchbar-image {
+  max-width: 267px;
+  margin-left: 73px;
+}
