@@ -40,6 +40,8 @@ class Hotel(db.Model):
     main_pic = db.Column(db.String(256))
     review_score = db.Column(db.Float)
     review_breakdowns = db.relationship('ReviewBreakdown', backref = 'hotel', lazy='dynamic')
+    desc =  db.Column(db.Text)
+
 
 
     def __repr__(self):

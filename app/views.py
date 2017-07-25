@@ -36,6 +36,7 @@ def get_hotel(hotel_id):
 	result.append( { 'name' : h.name ,
 					 'review_score': h.review_score,
 					 'location' : { 'latitude'  : h.latitude, 'longitude'  : h.longitude },
+					 'description' : h.desc,
 					 'reviews_url' : url_for('get_hotel_reviews', hotel_id=h.code, _external=True),
 					 'photos_url' : url_for('get_hotel_photos', hotel_id=h.code, _external=True),
 					 'reviews_breakdown' : url_for('get_hotel_review_breakdown', hotel_id=h.code, _external=True),
