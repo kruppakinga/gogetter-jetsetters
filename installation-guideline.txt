@@ -18,14 +18,30 @@ pip install -r requirements.txt
 chmod a+x db_create.py
 chmod a+x db_migrate.py
 chmod a+x delete_db.py
+chmod a+x create_initial_db.py
 chmod a+x run.py
 
-8. run these two:
+
+8. run these:
 ./db_create.py
 ./db_migrate.py
+./create_initial_db.py
 
 9. run run.py
 ./run.py
 
 10. This would get you running the server side
 
+########################
+
+API calls:
+
+- from terminal:
+
+ curl -i  http://localhost:5000/hotels
+ -> a list of the hotels (general cached data)
+ 
+ curl -i http://localhost:5000/hotels/10064
+ -> details of a specific hotel (general cached data)
+ -> you can get the API endpoints for the pictures, reviews
+ 
