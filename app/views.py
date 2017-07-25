@@ -33,6 +33,8 @@ def get_hotels():
 @app.route('/hotels/<string:hotel_id>', methods=['GET'])
 def get_hotel(hotel_id):
 	h = models.Hotel.query.filter(models.Hotel.code == hotel_id).first()
+	if h == None:
+		abort(404)
 	result = []
 	result.append( { 'name' : h.name ,
 					 'review_score': h.review_score,
@@ -104,8 +106,8 @@ def compare():
 		else:
 			hotel = models.Hotel.query.filter(models.Hotel.code == value).first()
 			hotel_data = json.loads(get_hotel(value).data)
-			# if len(hotel_data) < 1:
-			# 	abort(500)
+			if len(hotel_data) < 1:
+				abort(500)
 
 			static_data = json.loads(get_hotel(value).data)[0]
 
@@ -122,8 +124,8 @@ def get_available_hotel( checkin, checkout, hotel_id):
 	url = 'https://distribution-xml.booking.com/json/getHotelAvailabilityV2?checkin={}&checkout={}&room1=A,A&output=room_details,hotel_details&hotel_ids={}'.format(checkin, checkout,  hotel_id)
 	print (url)
 	hotel = requests.get(url, auth=(user, pwd)).json()
-	# if len(hotel['hotels']) == 0:
-	# 	abort(500)
+	if len(hotel['hotels']) == 0:
+	 	abort(500)
 
 	return {'booking_url' : hotel['hotels'][0]['hotel_url'], 
 			'room_min_price' : hotel['hotels'][0]['price'], 
@@ -132,8 +134,11 @@ def get_available_hotel( checkin, checkout, hotel_id):
 			}	
 
 
-# @app.errorhandler(500)
-# def not_found(error):
-# 	return make_response(jsonify({'error': 'Hotel is not available in that time interval'}), 500)
+@app.errorhandler(500)
+def not_found(error):
+	return make_response(jsonify({'error': 'Hotel is not available in that time interval'}), 500)
 
+@app.errorhandler(404)
+def not_found(error):
+	return make_response(jsonify({'error': 'Hotel does not exist'}), 404)
 
