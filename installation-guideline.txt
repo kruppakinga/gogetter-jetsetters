@@ -8,6 +8,12 @@ python3 -m venv venv
 
 4. now you should have a directory called 'venv' inside the gogetter-jetsetters directory
 
+to activate it run:
+
+source venv/bin/activate
+
+Now you will have a (venv) in your prompt
+
 5. install requirements package
 
 pip install -r requirements.txt
