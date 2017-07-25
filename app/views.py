@@ -12,6 +12,9 @@ from app import app
 def index():
 	return render_template('index.html')
 
+@app.route('/shelf')
+def shelf():
+	return render_template('shelf.html')
 
 @app.route('/hotels', methods=['GET'])
 def get_hotels():
