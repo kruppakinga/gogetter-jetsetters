@@ -79,7 +79,11 @@ function getHotelByIdOnSuccess(data) {
 	console.log(data[0].photos_url);
 	$("#column-0").find('h4').text(data[0].name);
 
-	getHotelPhotosById(data[0].photos_url);
+	var photosUrl = data[0].photos_url;
+	var reviewsUrl = data[0].reviews_url;
+
+	getHotelPhotosById(photosUrl);
+	getHotelReviewsById(reviewsUrl);
 };
 
 function getHotelByIdOnError() {
@@ -93,8 +97,7 @@ function getHotelPhotosById(photosUrl) {
 	//"10007"
 	//"10008"
 
-	//GET all hotels
-    //var url = "/hotels/photos/" + id;
+	//GET photos
     var url = photosUrl;
     var settings = {
         cache: false
@@ -117,6 +120,33 @@ function getHotelPhotosByIdOnSuccess(data) {
 
 function getHotelPhotosByIdOnError() {
 	console.log('inside getHotelPhotosByIdOnError');
+};
+
+function getHotelReviewsById(reviewsUrl) {
+	console.log('inside getHotelById');
+
+	//GET reviews
+    var url = reviewsUrl;
+    var settings = {
+        cache: false
+        , contentType: "application/json; charset=utf-8" 
+        , dataType: "json"
+        , success: getHotelReviewsByIdOnSuccess 
+        , error: getHotelReviewsByIdOnError
+        , type: "GET"
+    };
+    $.ajax(url, settings);
+};
+
+function getHotelReviewsByIdOnSuccess(data) {
+	console.log('inside get reviews - success. hotel reviews: ', data);
+
+	$("#pro-1").html('"' + data[0].pro + '"');
+	$("#con-1").html('"' + data[0].con + '"');
+};
+
+function getHotelReviewsByIdOnError() {
+	console.log('inside get reviews - error');
 };
 
 
