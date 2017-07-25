@@ -1,0 +1,31 @@
+1. install python3
+
+2. install virtualenv
+
+3. make sure to have it in your working directory, and it's called 'venv'
+
+python3 -m venv venv
+
+4. now you should have a directory called 'venv' inside the gogetter-jetsetters directory
+
+5. install requirements package
+
+pip install -r requirements.txt
+
+6. modify the create_initial_db.py file with the booking API credentials
+
+7. make the db files and run executable:
+chmod a+x db_create.py
+chmod a+x db_migrate.py
+chmod a+x delete_db.py
+chmod a+x run.py
+
+8. run these two:
+./db_create.py
+./db_migrate.py
+
+9. run run.py
+./run.py
+
+10. This would get you running the server side
+
