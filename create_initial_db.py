@@ -2,13 +2,9 @@
 import requests
 import json
 import time
+from secret import user, pwd
 
 from app import db, models
-
-
-#INSERT YOUR BOOKING API USERNAME AND PWD HERE
-user = 'USR'
-pwd = 'PWD'
 
 
 def get_cities():

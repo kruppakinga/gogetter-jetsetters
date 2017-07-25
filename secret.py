@@ -1,0 +1,2 @@
+user = 'USR'
+pwd = 'PWD'
