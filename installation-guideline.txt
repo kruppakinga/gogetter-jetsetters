@@ -1,6 +1,7 @@
 1. install python3
+brew install python3
 
-2. install virtualenv
+(2. install virtualenv)
 
 3. make sure to have it in your working directory, and it's called 'venv'
 
