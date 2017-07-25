@@ -7,8 +7,16 @@ from app import db, models
 
 
 #INSERT YOUR BOOKING API USERNAME AND PWD HERE
+<<<<<<< HEAD
 user = 'USER'
 pwd = 'PWD'
+||||||| merged common ancestors
+user = 'USERNAME'
+pwd = 'PWD'
+=======
+user = 'b_women_tech17'
+pwd = 'uEt9aQ,.3KNq&vfa&Cx8'
+>>>>>>> 27b80f10b5261e368630178d2a58b87ee732c443
 
 def get_cities():
 	limit_rows = '1000'
