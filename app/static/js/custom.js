@@ -15,12 +15,14 @@ $(function(){
 
 	loadView();
 
+
 });
 
 function loadView() {
     var self = this;
 
     console.log('inside loadView');
+    $('[data-toggle="tooltip"]').tooltip();
 };
 
 function clickHandler() {
