@@ -36,8 +36,7 @@ function loadView() {
 
 
     // Initialize navgoco with default options
-    $(".main-menu").navgoco({
-        caret: '<span class="caret"></span>',
+    $(".panel").navgoco({
         accordion: false,
         openClass: 'open',
         save: true,
