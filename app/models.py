@@ -37,7 +37,9 @@ class Hotel(db.Model):
     longitude = db.Column(db.Float)
     reviews = db.relationship('Review', backref = 'hotel', lazy='dynamic')
     pics = db.relationship('Picture', backref = 'hotel', lazy='dynamic')
+    main_pic = db.Column(db.String(256))
     review_score = db.Column(db.Float)
+    review_breakdowns = db.relationship('ReviewBreakdown', backref = 'hotel', lazy='dynamic')
 
 
     def __repr__(self):
@@ -67,4 +69,17 @@ class Picture(db.Model):
     def __repr__(self):
         return (self.url)
 
+class ReviewBreakdown(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    hotel_id = db.Column(db.Integer, db.ForeignKey('hotel.code'))
+    customer_type = db.Column(db.String(64))
+    total = db.Column(db.Float)
+    clean = db.Column(db.Float)
+    comfort = db.Column(db.Float)
+    location = db.Column(db.Float)
+    staff = db.Column(db.Float)
+    value = db.Column(db.Float)
+    wifi = db.Column(db.Float)
 
+    def __repr__(self):
+        return ('%r %r' % (self.customer_type, self.total))

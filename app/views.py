@@ -3,6 +3,7 @@ import json
 from flask import jsonify
 from flask import render_template, flash, redirect, session, url_for, request, g
 from app import models, db
+from flask_bootstrap import Bootstrap
 
 
 from app import app
@@ -37,6 +38,8 @@ def get_hotel(hotel_id):
 					 'location' : { 'latitude'  : h.latitude, 'longitude'  : h.longitude },
 					 'reviews_url' : url_for('get_hotel_reviews', hotel_id=h.code, _external=True),
 					 'photos_url' : url_for('get_hotel_photos', hotel_id=h.code, _external=True),
+					 'reviews_breakdown' : url_for('get_hotel_review_breakdown', hotel_id=h.code, _external=True),
+					 'main_photo' : h.main_pic
 
 	} )
 	return jsonify(  result  )
@@ -49,7 +52,8 @@ def get_hotel_reviews(hotel_id):
 	for r in hotel.reviews:
 		rev_result.append ( { 'headline' : r.headline ,
 							  'pro' : r.pro,
-							  'con' : r.con
+							  'con' : r.con,
+							  'avg_score' : r.avg_score
 							} )
 
 	return jsonify(  rev_result  )
@@ -64,6 +68,24 @@ def get_hotel_photos(hotel_id):
 							} )
 
 	return jsonify(  pics_result  )
+
+
+@app.route('/hotels/review_breakdown/<string:hotel_id>', methods=['GET'])
+def get_hotel_review_breakdown(hotel_id):
+	hotel = models.Hotel.query.filter(models.Hotel.code == hotel_id).first()
+	rev_result = []
+	print(hotel)
+	for r in hotel.review_breakdowns:
+		rev_result.append ( { 'customer_type' : r.customer_type ,
+							  'total' : r.total,
+							  'clean' : r.clean,
+							  'comfort' : r.comfort,
+							  'location' : r.location,
+							  'staff' : r.staff,
+							  'value' : r.value,
+							  'wifi' : r.wifi
+							} )
+	return jsonify(  rev_result  )
 
 @app.route('/compare', methods=['GET'])
 def compare():
