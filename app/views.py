@@ -12,10 +12,10 @@ from app import app
 def index():
 	return render_template('index.html')
 
-hotels = models.Hotel.query.all()
 
 @app.route('/hotels', methods=['GET'])
 def get_hotels():
+	hotels = models.Hotel.query.all()
 	result = []
 	for h in hotels:
 		result.append( {'name' : h.name ,
@@ -27,6 +27,7 @@ def get_hotels():
 
 @app.route('/hotels/<string:hotel_id>', methods=['GET'])
 def get_hotel(hotel_id):
+	hotels = models.Hotel.query.all()
 	hotel = [h for h in hotels if h.code == hotel_id]
 	# if len(hotel)==0:
 	# 	abort(404)
