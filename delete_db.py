@@ -20,4 +20,7 @@ deleteEntry(reviews)
 pictures = models.Picture.query.all()
 deleteEntry(pictures)
 
+review_breakdown = models.ReviewBreakdown.query.all()
+deleteEntry(review_breakdown)
+
 
