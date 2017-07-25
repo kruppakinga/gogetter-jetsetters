@@ -67,7 +67,8 @@ def get_cities():
 						if q['question'] == 'hotel_clean':
 							clean = q['score']
 					sc_bdown = models.ReviewBreakdown(customer_type=cust_type, total = total, clean = clean, 
-						comfort = comfort, location = location, staff = staff, value = value_money, wifi = wifi)
+						comfort = comfort, location = location, staff = staff, value = value_money, wifi = wifi,
+						hotel = h)
 					db.session.add(sc_bdown)
 			
 			db.session.add(h)

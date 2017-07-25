@@ -38,6 +38,7 @@ def get_hotel(hotel_id):
 					 'location' : { 'latitude'  : h.latitude, 'longitude'  : h.longitude },
 					 'reviews_url' : url_for('get_hotel_reviews', hotel_id=h.code, _external=True),
 					 'photos_url' : url_for('get_hotel_photos', hotel_id=h.code, _external=True),
+					 'reviews_breakdown' : url_for('get_hotel_review_breakdown', hotel_id=h.code, _external=True),
 					 'main_photo' : h.main_pic
 
 	} )
@@ -73,6 +74,7 @@ def get_hotel_photos(hotel_id):
 def get_hotel_review_breakdown(hotel_id):
 	hotel = models.Hotel.query.filter(models.Hotel.code == hotel_id).first()
 	rev_result = []
+	print(hotel)
 	for r in hotel.review_breakdowns:
 		rev_result.append ( { 'customer_type' : r.customer_type ,
 							  'total' : r.total,
@@ -83,7 +85,6 @@ def get_hotel_review_breakdown(hotel_id):
 							  'value' : r.value,
 							  'wifi' : r.wifi
 							} )
-	
 	return jsonify(  rev_result  )
 
 @app.route('/compare', methods=['GET'])

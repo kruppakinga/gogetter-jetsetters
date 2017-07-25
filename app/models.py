@@ -81,5 +81,5 @@ class ReviewBreakdown(db.Model):
     value = db.Column(db.Float)
     wifi = db.Column(db.Float)
 
-
-
+    def __repr__(self):
+        return ('%r %r' % (self.customer_type, self.total))
