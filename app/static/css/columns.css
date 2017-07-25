@@ -1,0 +1,22 @@
+/* Bootsnip Columns demo
+https://bootsnipp.com/snippets/vr6qd*/
+
+.title-header {
+  padding: .75rem 1.25rem;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid transparent;
+}
+
+.title-header h3 {
+  font-size: 0.80rem;
+  margin: 0;
+}
+
+.comparison-table {
+  margin-top: 2rem;
+}
+
+.img-card {
+  width: 100%;
+  margin-bottom: .40rem;
+}

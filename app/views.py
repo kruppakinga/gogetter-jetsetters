@@ -13,28 +13,70 @@ from app import app
 def index():
 	return render_template('index.html')
 
+<<<<<<< HEAD
+=======
+@app.route('/shelf')
+def shelf():
+	return render_template('shelf.html')
+
+>>>>>>> eed7ad1ab76734264bff8a83769447fd6bee3d1a
 @app.route('/hotels', methods=['GET'])
 def get_hotels():
 	hotels = models.Hotel.query.all()
 	result = []
 	for h in hotels:
 		result.append( {'name' : h.name ,
-						'hotel_code': h.code,
+						'code' : h.code ,
 						'url' : url_for('get_hotel', hotel_id=h.code, _external=True)
 						}
 			)
-	return jsonify(  {'hotels' :   result } )
+	return jsonify(  result )
 
 @app.route('/hotels/<string:hotel_id>', methods=['GET'])
 def get_hotel(hotel_id):
-	hotels = models.Hotel.query.all()
-	hotel = [h for h in hotels if h.code == hotel_id]
-	# if len(hotel)==0:
-	# 	abort(404)
+	h = models.Hotel.query.filter(models.Hotel.code == hotel_id).first()
 	result = []
-	for h in hotel:
-		result.append( { 'name' : h.name ,
-						 'review_score': h.review_score,
+	result.append( { 'name' : h.name ,
+					 'review_score': h.review_score,
+					 'location' : { 'latitude'  : h.latitude, 'longitude'  : h.longitude },
+					 'reviews_url' : url_for('get_hotel_reviews', hotel_id=h.code, _external=True),
+					 'photos_url' : url_for('get_hotel_photos', hotel_id=h.code, _external=True),
 
-			} )
+	} )
 	return jsonify(  result  )
+
+
+@app.route('/hotels/reviews/<string:hotel_id>', methods=['GET'])
+def get_hotel_reviews(hotel_id):
+	hotel = models.Hotel.query.filter(models.Hotel.code == hotel_id).first()
+	rev_result = []
+	for r in hotel.reviews:
+		rev_result.append ( { 'headline' : r.headline ,
+							  'pro' : r.pro,
+							  'con' : r.con
+							} )
+	
+	return jsonify(  rev_result  )
+
+@app.route('/hotels/photos/<string:hotel_id>', methods=['GET'])
+def get_hotel_photos(hotel_id):
+	hotel = models.Hotel.query.filter(models.Hotel.code == hotel_id).first()
+	pics_result = []
+	for pic in hotel.pics:
+		pics_result.append ( { 'url' : pic.url ,
+							   'url_max_300' : pic.url_max_300
+							} )
+	
+	return jsonify(  pics_result  )
+
+@app.route('/compare', methods=['GET'])
+def compare():
+	result = []
+	hotels = request.args.to_dict()
+	for key, hotel_id in hotels.items():
+		hotel = models.Hotel.query.filter(models.Hotel.code == hotel_id).first()
+		result.append ( json.loads(get_hotel(hotel_id).data)[0] )
+	print ( result )
+	return jsonify( result )
+
+
