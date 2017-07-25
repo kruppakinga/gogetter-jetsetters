@@ -7,8 +7,8 @@ from app import db, models
 
 
 #INSERT YOUR BOOKING API USERNAME AND PWD HERE
-user = 'USERNAME'
-pwd = 'PWD'
+user = 'b_women_tech17'
+pwd = 'uEt9aQ,.3KNq&vfa&Cx8'
 
 
 def get_cities():

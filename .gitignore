@@ -3,3 +3,4 @@ app/__pycache__/*
 db_repository/*
 app.db
 venv/*
+app/__pycache__/views.cpython-36.pyc
