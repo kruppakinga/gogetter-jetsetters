@@ -3,6 +3,7 @@ import json
 from flask import jsonify
 from flask import render_template, flash, redirect, session, url_for, request, g
 from app import models, db
+from flask_bootstrap import Bootstrap
 
 
 from app import app
@@ -11,7 +12,6 @@ from app import app
 @app.route('/index')
 def index():
 	return render_template('index.html')
-
 
 @app.route('/hotels', methods=['GET'])
 def get_hotels():
