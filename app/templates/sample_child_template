@@ -39,9 +39,3 @@
 	  </tbody>
 	</table>
 {% endblock %} 
-
-{% block scripts %} 
-<script>
-	$('.important').toggle();
-</script>
-{% endblock %}
