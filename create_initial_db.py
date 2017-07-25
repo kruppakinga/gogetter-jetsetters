@@ -21,10 +21,13 @@ def get_cities():
 		db.session.commit()
 
 		ts = time.time()
-		url = 'https://distribution-xml.booking.com/json/bookings.getHotels?city_ids={}&languagecode=en&rows=10'.format(city['city_id'])
+		url = 'https://distribution-xml.booking.com/json/bookings.getHotels?city_ids={}&languagecodes=en&rows=15'.format(city['city_id'])
 		hotels = requests.get(url, auth=(user, pwd)).json()
 		for hotel in hotels:
-			h = models.Hotel(name=hotel['name'], code = hotel['hotel_id'], address = hotel['address'], url = hotel['url'],  latitude = hotel['location']['latitude'], longitude = hotel['location']['longitude'], review_score=hotel['review_score'], city = c)
+			h = models.Hotel(name=hotel['name'], code = hotel['hotel_id'], address = hotel['address'], url = hotel['url'],  
+				latitude = hotel['location']['latitude'], longitude = hotel['location']['longitude'], review_score=hotel['review_score'],
+				booking_url = hotel['url'],
+				 city = c)
 			db.session.add(h)
 
 			url = 'https://distribution-xml.booking.com/json/bookings.getHotelDescriptionPhotos?hotel_ids={}'.format(hotel['hotel_id'])
@@ -33,7 +36,7 @@ def get_cities():
 				p = models.Picture(url=pic['url_original'], url_max_300 = pic['url_max300'], code=pic['photo_id'], hotel = h)
 				db.session.add(p)
 
-			url = 'https://distribution-xml.booking.com/json/bookings.getBookingcomReviews?hotel_ids={}'.format(hotel['hotel_id'])
+			url = 'https://distribution-xml.booking.com/json/bookings.getBookingcomReviews?hotel_ids={}&languagecodes=en'.format(hotel['hotel_id'])
 			reviews = requests.get(url, auth=(user, pwd)).json()
 			for review in reviews:
 				r = models.Review(pro=review['pros'], con = review['cons'], headline=review['headline'], avg_score=review['average_score'], hotel = h)
@@ -42,6 +45,10 @@ def get_cities():
 			url = 'https://distribution-xml.booking.com/json/bookings.getHotelPhotos?hotel_ids={}'.format(hotel['hotel_id'])
 			main_pic = requests.get(url, auth=(user, pwd)).json()
 			h.main_pic = pic['url_max300']
+
+			url = 'https://distribution-xml.booking.com/json/bookings.getHotelDescriptionTranslations?hotel_ids={}&languagecodes=en'.format(hotel['hotel_id'])
+			descr = requests.get(url, auth=(user, pwd)).json()
+			h.desc = descr[0]['description']
 
 			url = 'https://distribution-xml.booking.com/json/bookings.getBookingcomReviewScores?hotel_ids={}'.format(hotel['hotel_id'])
 			scores = requests.get(url, auth=(user, pwd)).json()
