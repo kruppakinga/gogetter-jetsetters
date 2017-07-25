@@ -59,7 +59,7 @@ def get_hotel_reviews(hotel_id):
 							  'con' : r.con,
 							  'avg_score' : r.avg_score
 							} )
-	
+
 	return jsonify(  rev_result  )
 
 @app.route('/hotels/photos/<string:hotel_id>', methods=['GET'])
@@ -70,7 +70,7 @@ def get_hotel_photos(hotel_id):
 		pics_result.append ( { 'url' : pic.url ,
 							   'url_max_300' : pic.url_max_300
 							} )
-	
+
 	return jsonify(  pics_result  )
 
 
