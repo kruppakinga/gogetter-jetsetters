@@ -7,7 +7,7 @@ from app import db, models
 
 
 #INSERT YOUR BOOKING API USERNAME AND PWD HERE
-user = 'USERNAME'
+user = 'USER'
 pwd = 'PWD'
 
 def get_cities():
@@ -41,6 +41,39 @@ def get_cities():
 			for review in reviews:
 				r = models.Review(pro=review['pros'], con = review['cons'], headline=review['headline'], avg_score=review['average_score'], hotel = h)
 				db.session.add(r)
+
+			url = 'https://distribution-xml.booking.com/json/bookings.getHotelPhotos?hotel_ids={}'.format(hotel['hotel_id'])
+			main_pic = requests.get(url, auth=(user, pwd)).json()
+			h.main_pic = pic['url_max300']
+
+			url = 'https://distribution-xml.booking.com/json/bookings.getBookingcomReviewScores?hotel_ids={}'.format(hotel['hotel_id'])
+			scores = requests.get(url, auth=(user, pwd)).json()
+			for sc in scores:
+				breakdown = sc['score_breakdown']
+				for s in breakdown:
+					cust_type = s['customer_type']
+					print(cust_type)
+					for q in s['question']:
+						if q['question'] == 'total':
+							wifi = total = q['score']
+							print(total)
+						if q['question'] == 'hotel_clean':
+							clean = q['score']
+						if q['question'] == 'hotel_comfort':
+							comfort = q['score']
+						if q['question'] == 'hotel_location':
+							location = q['score']
+						if q['question'] == 'hotel_services':
+							services = q['score']
+						if q['question'] == 'hotel_staff':
+							staff = q['score']
+						if q['question'] == 'hotel_value':
+							value_money = q['score']
+						if q['question'] == 'hotel_clean':
+							clean = q['score']
+					sc_bdown = models.ReviewBreakdown(customer_type=cust_type, total = total, clean = clean, 
+						comfort = comfort, location = location, staff = staff, value = value_money, wifi = wifi)
+					db.session.add(sc_bdown)
 			
 			db.session.add(h)
 

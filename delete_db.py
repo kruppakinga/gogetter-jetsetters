@@ -10,7 +10,6 @@ def deleteEntry(entries):
 cities = models.City.query.all()
 deleteEntry(cities)
 
-
 hotels = models.Hotel.query.all()
 deleteEntry(hotels)
 
