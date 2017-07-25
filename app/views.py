@@ -58,7 +58,7 @@ def get_hotel_reviews(hotel_id):
 							  'con' : r.con,
 							  'avg_score' : r.avg_score
 							} )
-	
+
 	return jsonify(  rev_result  )
 
 @app.route('/hotels/photos/<string:hotel_id>', methods=['GET'])
@@ -69,7 +69,7 @@ def get_hotel_photos(hotel_id):
 		pics_result.append ( { 'url' : pic.url ,
 							   'url_max_300' : pic.url_max_300
 							} )
-	
+
 	return jsonify(  pics_result  )
 
 
@@ -93,19 +93,29 @@ def get_hotel_review_breakdown(hotel_id):
 def compare():
 	result = []
 	hotels = request.args.to_dict()
-	for key, hotel_id in hotels.items():
-		hotel = models.Hotel.query.filter(models.Hotel.code == hotel_id).first()
-		static_data = json.loads(get_hotel(hotel_id).data)[0] 
+	checkin = '2017-12-05'
+	checkout = '2017-12-06'
+	for key, value in hotels.items():
+		if key == 'checkin':
+			checkin = value
+		elif key == 'checkout':
+			checkin = value
+		else:
+			hotel = models.Hotel.query.filter(models.Hotel.code == value).first()
+			static_data = json.loads(get_hotel(value).data)[0]
 
-		price = get_available_hotel(hotel.code) 
-		static_data.update(price)
-		result.append ( static_data )
+			price = get_available_hotel(checkin, checkout, hotel.code) 
+			static_data.update(price)
+			result.append ( static_data )
 	print ( result )
 	return jsonify( result )
 
 
-def get_available_hotel(hotel_id):
-	url = 'https://distribution-xml.booking.com/json/getHotelAvailabilityV2?checkin=2017-10-22&checkout=2017-10-23&room1=A,A&output=room_details,hotel_details&hotel_ids={}'.format(hotel_id)
+def get_available_hotel( checkin, checkout, hotel_id):
+	print(checkin)
+	print(checkout)
+	url = 'https://distribution-xml.booking.com/json/getHotelAvailabilityV2?checkin={}&checkout={}&room1=A,A&output=room_details,hotel_details&hotel_ids={}'.format(checkin, checkout,  hotel_id)
+	print (url)
 	hotel = requests.get(url, auth=(user, pwd)).json()
 	return {'booking_url' : hotel['hotels'][0]['hotel_url'], 
 			'room_min_price' : hotel['hotels'][0]['price'], 
