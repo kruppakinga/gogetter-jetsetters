@@ -25,7 +25,9 @@ def get_cities():
 		hotels = requests.get(url, auth=(user, pwd)).json()
 		for hotel in hotels:
 			h = models.Hotel(name=hotel['name'], code = hotel['hotel_id'], address = hotel['address'], url = hotel['url'],  
-				latitude = hotel['location']['latitude'], longitude = hotel['location']['longitude'], review_score=hotel['review_score'], city = c)
+				latitude = hotel['location']['latitude'], longitude = hotel['location']['longitude'], review_score=hotel['review_score'],
+				booking_url = hotel['url'],
+				 city = c)
 			db.session.add(h)
 
 			url = 'https://distribution-xml.booking.com/json/bookings.getHotelDescriptionPhotos?hotel_ids={}'.format(hotel['hotel_id'])

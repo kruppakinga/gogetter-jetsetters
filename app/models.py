@@ -41,6 +41,7 @@ class Hotel(db.Model):
     review_score = db.Column(db.Float)
     review_breakdowns = db.relationship('ReviewBreakdown', backref = 'hotel', lazy='dynamic')
     desc =  db.Column(db.Text)
+    booking_url = db.Column(db.String(256))
 
 
 
