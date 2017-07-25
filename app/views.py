@@ -13,13 +13,10 @@ from app import app
 def index():
 	return render_template('index.html')
 
-<<<<<<< HEAD
-=======
 @app.route('/shelf')
 def shelf():
 	return render_template('shelf.html')
 
->>>>>>> eed7ad1ab76734264bff8a83769447fd6bee3d1a
 @app.route('/hotels', methods=['GET'])
 def get_hotels():
 	hotels = models.Hotel.query.all()
