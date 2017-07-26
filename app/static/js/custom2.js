@@ -23,7 +23,7 @@ var reviewBreakdown = {
 function loadView2() {
     var self = this;
 
-    getHotels();
+    //getHotels();
     var hotelsArray = ["10082", "10074", "10024"];
     compareHotels(hotelsArray);
 
@@ -48,9 +48,9 @@ function compareHotels(hotels) {
     var url = "/compare?1=" + hotels[0] + "&2=" + hotels[1]+ "&3=" + hotels[2] + "&checkin=2017-12-05&checkout=2017-12-06";
     var settings = {
         cache: true
-        , contentType: "application/json; charset=utf-8" 
+        , contentType: "application/json; charset=utf-8"
         , dataType: "json"
-        , success: compareHotelsOnSuccess 
+        , success: compareHotelsOnSuccess
         , error: compareHotelsOnError
         , type: "GET"
     };
@@ -93,7 +93,7 @@ function compareHotelsOnSuccess(data) {
 
 		var description = data[i].description;
 		var descriptionArray = description.split(".");
-		var descriptionFirstSentence = descriptionArray[0]; 
+		var descriptionFirstSentence = descriptionArray[0];
 		$('#description-' + i).html(descriptionFirstSentence);
 
 		getHotelReviewsBreakdown(hotelsArray[i].reviews_breakdown);
@@ -115,9 +115,9 @@ function getHotelPhotosById(photosUrl, i) {
     var url = photosUrl;
     var settings = {
         cache: true
-        , contentType: "application/json; charset=utf-8" 
+        , contentType: "application/json; charset=utf-8"
         , dataType: "json"
-        , success: getHotelPhotosByIdOnSuccess 
+        , success: getHotelPhotosByIdOnSuccess
         , error: getHotelPhotosByIdOnError
         , type: "GET"
     };
@@ -129,7 +129,7 @@ function getHotelPhotosByIdOnSuccess(data) {
 	for (var i = 0; i < 3; i++) {
 		$('#img-carousel-' + data[i].hotel_id).find(".img-" + i).attr('src', data[i].url);
 	}
-	
+
 };
 
 function getHotelPhotosByIdOnError() {
@@ -142,9 +142,9 @@ function getHotelReviewsById(reviewsUrl) {
     var url = reviewsUrl;
     var settings = {
         cache: true
-        , contentType: "application/json; charset=utf-8" 
+        , contentType: "application/json; charset=utf-8"
         , dataType: "json"
-        , success: getHotelReviewsByIdOnSuccess 
+        , success: getHotelReviewsByIdOnSuccess
         , error: getHotelReviewsByIdOnError
         , type: "GET"
     };
@@ -180,9 +180,9 @@ function getHotelReviewsBreakdown(breakdownUrl) {
     var url = breakdownUrl;
     var settings = {
         cache: true
-        , contentType: "application/json; charset=utf-8" 
+        , contentType: "application/json; charset=utf-8"
         , dataType: "json"
-        , success: getHotelReviewsBreakdownOnSuccess 
+        , success: getHotelReviewsBreakdownOnSuccess
         , error: getHotelReviewsBreakdownOnError
         , type: "GET"
     };
@@ -245,9 +245,9 @@ function getHotels() {
     var url = "/hotels";
     var settings = {
         cache: true
-        , contentType: "application/json; charset=utf-8" 
+        , contentType: "application/json; charset=utf-8"
         , dataType: "json"
-        , success: getHotelsOnSuccess 
+        , success: getHotelsOnSuccess
         , error: getHotelsOnError
         , type: "GET"
     };
@@ -274,9 +274,9 @@ function getHotelsOnError() {
 //     var url = "/hotels/" + id;
 //     var settings = {
 //         cache: true
-//         , contentType: "application/json; charset=utf-8" 
+//         , contentType: "application/json; charset=utf-8"
 //         , dataType: "json"
-//         , success: getHotelByIdOnSuccess 
+//         , success: getHotelByIdOnSuccess
 //         , error: getHotelByIdOnError
 //         , type: "GET"
 //     };
@@ -297,7 +297,7 @@ function getHotelsOnError() {
 
 // 	var description = data[0].description;
 // 	var descriptionArray = description.split(".");
-// 	var descriptionFirstSentence = descriptionArray[0]; 
+// 	var descriptionFirstSentence = descriptionArray[0];
 
 // 	//console.log('descriptionArray[0]', descriptionArray[0]);
 
