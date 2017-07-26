@@ -24,8 +24,9 @@ $(function(){
 	//target="_blank" 
 
 	$('.compare').on('click', function(e){
-		var hotel1 = $(this).data('hotelOne');
-		compareHotels(hotel1, '10074', '10024');
+		var hotelsArray = $(this).data('hotels');
+		compareHotels(hotelsArray);
+		console.log(hotelsArray);
 		//compareHotels('10082', '10074', '10024');
 	});
 
@@ -62,11 +63,11 @@ function initMap(location, num) {
     });
 }
 
-function compareHotels(hotel1, hotel2, hotel3) {
+function compareHotels(hotels) {
 	console.log('inside click handler');
 
 	//GET all hotels
-    var url = "/compare?1=" + hotel1 + "&2=" + hotel2+ "&3=" + hotel3 + "&checkin=2017-12-05&checkout=2017-12-06";
+    var url = "/compare?1=" + hotels[0] + "&2=" + hotels[1]+ "&3=" + hotels[2] + "&checkin=2017-12-05&checkout=2017-12-06";
     var settings = {
         cache: true
         , contentType: "application/json; charset=utf-8" 
@@ -339,6 +340,17 @@ function getHotelReviewsBreakdownOnSuccess(data) {
 		if (reviewBreakdown.staff[1]) {
 			$("#staff-" + reviewBreakdown.staff[1]).css('background-color', 'transparent');
 		}
+		$("#staff-" + hotel_id).css('background-color', '#FFDF00');
+		reviewBreakdown.staff[0] = data[0].staff;
+		reviewBreakdown.staff[1] = hotel_id;
+	}
+
+	$("#staff-" + hotel_id).text(data[0].staff);
+
+	if (data[0].staff == reviewBreakdown.staff[0]){
+		// if (reviewBreakdown.staff[1]) {
+		// 	$("#staff-" + reviewBreakdown.staff[1]).css('background-color', 'transparent');
+		// }
 		$("#staff-" + hotel_id).css('background-color', '#FFDF00');
 		reviewBreakdown.staff[0] = data[0].staff;
 		reviewBreakdown.staff[1] = hotel_id;
