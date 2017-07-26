@@ -17,6 +17,12 @@ $(function(){
 		getHotelById(e);
 	});
 
+    $('.external-link').on('click', function(e){
+        console.log('inside link square click');
+        //e.stopPropogation();
+        //goToFullView(e);
+    });
+
 	loadView();
 
 
@@ -54,6 +60,14 @@ function loadView() {
             easing: 'swing'
         }
     });
+};
+
+function goToFullView(){
+    event.cancelBubble = true;
+    if(event.stopPropagation) {
+     event.stopPropagation();
+    }
+    window.open('/shelf','_blank');
 };
 
 function clickHandler() {
