@@ -7,10 +7,10 @@ https://bootsnipp.com/snippets/vr6qd*/
   border-bottom: 1px solid transparent;
 }
 
-.title-header h3 {
+/*.title-header h3 {
   font-size: 0.80rem;
   margin: 0;
-}
+}*/
 
 .comparison-table {
   margin-top: 2rem;
@@ -19,4 +19,28 @@ https://bootsnipp.com/snippets/vr6qd*/
 .img-card {
   width: 100%;
   margin-bottom: .40rem;
+}
+
+.main-text
+{
+    /*position: absolute;
+    top: 250px;
+    width: 100%;
+    color: #FFF;
+    background: rgba(0,0,0,0.5);*/
+    background-color: #778899;
+    color: #FFF;
+}
+
+.main-text h4 {
+	margin: 8px;
+}
+
+td {
+	width: 160%;
+}
+
+.map {
+	height: 400px;
+	width: 100%;
 }

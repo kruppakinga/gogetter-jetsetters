@@ -13,28 +13,60 @@ $(function(){
 	// 	clickHandler(e);
 	// });
 
-	$('#comparison-header').on('click', function(e){
-		getHotelById(e);
+	// $('#comparison-header').on('click', function(e){
+	// 	getHotelById(e);
+	// });
+
+	// $(button).on('click', function(e){
+	// 	window.location.replace(href);
+	// });
+
+	//target="_blank" 
+
+	$('.compare').on('click', function(e){
+		var hotel1 = $(this).data('hotelOne');
+		compareHotels(hotel1, '10074', '10024');
+		//compareHotels('10082', '10074', '10024');
 	});
 
 	loadView2();
 
 });
 
+var reviewBreakdown = {
+	value: [0.0],
+	clean: [0.0],
+	comfort: [0.0],
+	location: [0.0],
+	staff: [0.0],
+	wifi: [0.0]
+}
+
 function loadView2() {
     var self = this;
 
     getHotels();
-    compareHotels();
 
     console.log('inside loadView');
 };
 
-function compareHotels() {
+function initMap(location, num) {
+    var hotelLoc = {lat: location.latitude, lng: location.longitude};
+    var map = new google.maps.Map(document.getElementById('map-' + num), {
+      zoom: 15,
+      center: hotelLoc
+    });
+    var marker = new google.maps.Marker({
+      position: hotelLoc,
+      map: map
+    });
+}
+
+function compareHotels(hotel1, hotel2, hotel3) {
 	console.log('inside click handler');
 
 	//GET all hotels
-    var url = "/compare?1=10004&2=10064&3=10023&checkin=2017-12-05&checkout=2017-12-06";
+    var url = "/compare?1=" + hotel1 + "&2=" + hotel2+ "&3=" + hotel3 + "&checkin=2017-12-05&checkout=2017-12-06";
     var settings = {
         cache: true
         , contentType: "application/json; charset=utf-8" 
@@ -51,15 +83,35 @@ function compareHotelsOnSuccess(data) {
 
 	var hotelsArray = data;
 
-	//column-
-	//img-carousel-
-	//img-
-	//description-
-	//pro-
-	//con-
-
 	for(var i = 0; i < hotelsArray.length; i++){
-		$("#img-" + i).attr('id', "#img-" + hotelsArray[i].name);
+
+		var hotelId = hotelsArray[i].hotel_id;
+		//$("#img-" + i).attr('id', "img-" + hotelsArray[i].hotel_id);
+		$("#name-" + i).text(data[i].name);
+		$("#img-carousel-" + i).attr('id', "img-carousel-" + hotelId);
+		$('#rating-' + i).text(hotelsArray[i].review_score);
+		$('#price-' + i).text(hotelsArray[i].room_min_price + " " + hotelsArray[i].currency);
+		$("#pro-" + i).attr('id', "pro-" + hotelId);
+		$("#con-" + i).attr('id', "con-" + hotelId);
+		$("#book-" + i).attr('href', data[i].hotel_url);
+
+		initMap(data[i].location, i);
+
+		$("#value-" + i).attr('id', "value-" + hotelId);
+		$("#clean-" + i).attr('id', "clean-" + hotelId);
+		$("#comfort-" + i).attr('id', "comfort-" + hotelId);
+		$("#customer-type-" + i).attr('id', "customer-type-" + hotelId);
+		$("#location-" + i).attr('id', "location-" + hotelId);
+		$("#staff-" + i).attr('id', "staff-" + hotelId);
+		$("#wifi-" + i).attr('id', "wifi-" + hotelId);
+
+		var description = data[i].description;
+		var descriptionArray = description.split(".");
+		var descriptionFirstSentence = descriptionArray[0]; 
+		$('#description-' + i).html(descriptionFirstSentence);
+
+		getHotelReviewsBreakdown(hotelsArray[i].reviews_breakdown);
+		getHotelReviewsById(hotelsArray[i].reviews_url);
 		getHotelPhotosById(hotelsArray[i].photos_url);
 	};
 
@@ -91,7 +143,7 @@ function getHotels() {
 };
 
 function getHotelsOnSuccess(data) {
-	//console.log('inside getHotelsOnSuccess. hotels: ', data);
+	console.log('inside getHotelsOnSuccess. hotels: ', data);
 
 	//$('.test').text(data[0].name);
 };
@@ -169,8 +221,13 @@ function getHotelPhotosByIdOnSuccess(data) {
 	// console.log('inside getHotelPhotosByIdOnSuccess. hotel photos: ', data);
 	// console.log(data);
 	// console.log('photo url', data[0].url);
+	console.log('data[0].hotel_id', data[0].hotel_id);
+	var id = $('#img-carousel-' + data[0].hotel_id).attr('id');
+	console.log('photos success data', data[0]);
 
-	$('.img-carousel-' + currentIndex).find("#img-" + currentIndex).attr('src', data[0].url);
+	$('#img-carousel-' + data[0].hotel_id).find(".img-0").attr('src', data[0].url);
+	$('#img-carousel-' + data[1].hotel_id).find(".img-1").attr('src', data[1].url);
+	$('#img-carousel-' + data[2].hotel_id).find(".img-2").attr('src', data[2].url);
 };
 
 function getHotelPhotosByIdOnError() {
@@ -195,12 +252,112 @@ function getHotelReviewsById(reviewsUrl) {
 function getHotelReviewsByIdOnSuccess(data) {
 	console.log('inside get reviews - success. hotel reviews: ', data);
 
-	$("#pro-0").html('"' + data[0].pro + '"');
-	$("#con-0").html('"' + data[0].con + '"');
+	if (data[1].pro && data[1].pro.length > 0) {
+		$("#pro-" + data[0].hotel_id).html('"' + data[1].pro + '"');
+	} else {
+		$("#pro-" + data[0].hotel_id).text("None");
+	}
+
+	if (data[1].con && data[1].con.length > 0) {
+		$("#con-" + data[0].hotel_id).html('"' + data[1].con + '"');
+	} else {
+		$("#con-" + data[0].hotel_id).text("None");
+	}
+
 };
 
 function getHotelReviewsByIdOnError() {
 	console.log('inside get reviews - error');
 };
 
+function getHotelReviewsBreakdown(breakdownUrl) {
+
+	//GET reviews
+    var url = breakdownUrl;
+    var settings = {
+        cache: true
+        , contentType: "application/json; charset=utf-8" 
+        , dataType: "json"
+        , success: getHotelReviewsBreakdownOnSuccess 
+        , error: getHotelReviewsBreakdownOnError
+        , type: "GET"
+    };
+    $.ajax(url, settings);
+};
+
+function getHotelReviewsBreakdownOnSuccess(data) {
+
+	var hotel_id = data[7].hotel_id;
+
+	$("#value-" + hotel_id).text(data[0].value);
+
+	if (data[0].value > reviewBreakdown.value[0]){
+		if (reviewBreakdown.value[1]) {
+			$("#value-" + reviewBreakdown.value[1]).css('background-color', 'transparent');
+		}
+		$("#value-" + hotel_id).css('background-color', '#FFDF00');
+		reviewBreakdown.value[0] = data[0].value;
+		reviewBreakdown.value[1] = hotel_id;
+	}
+
+	$("#clean-" + hotel_id).text(data[0].clean);
+
+	if (data[0].clean > reviewBreakdown.clean[0]){
+		if (reviewBreakdown.clean[1]) {
+			$("#clean-" + reviewBreakdown.clean[1]).css('background-color', 'transparent');
+		}
+		$("#clean-" + hotel_id).css('background-color', '#FFDF00');
+		reviewBreakdown.clean[0] = data[0].clean;
+		reviewBreakdown.clean[1] = hotel_id;
+	}
+
+	$("#comfort-" + hotel_id).text(data[0].comfort);
+	
+	if (data[0].comfort > reviewBreakdown.comfort[0]){
+		if (reviewBreakdown.comfort[1]) {
+			$("#comfort-" + reviewBreakdown.comfort[1]).css('background-color', 'transparent');
+		}
+		$("#comfort-" + hotel_id).css('background-color', '#FFDF00');
+		reviewBreakdown.comfort[0] = data[0].comfort;
+		reviewBreakdown.comfort[1] = hotel_id;
+	}
+
+	$("#location-" + hotel_id).text(data[0].location);
+
+	if (data[0].location > reviewBreakdown.location[0]){
+		if (reviewBreakdown.location[1]) {
+			$("#location-" + reviewBreakdown.location[1]).css('background-color', 'transparent');
+		}
+		$("#location-" + hotel_id).css('background-color', '#FFDF00');
+		reviewBreakdown.location[0] = data[0].location;
+		reviewBreakdown.location[1] = hotel_id;
+	}
+
+	$("#staff-" + hotel_id).text(data[0].staff);
+
+	if (data[0].staff > reviewBreakdown.staff[0]){
+		if (reviewBreakdown.staff[1]) {
+			$("#staff-" + reviewBreakdown.staff[1]).css('background-color', 'transparent');
+		}
+		$("#staff-" + hotel_id).css('background-color', '#FFDF00');
+		reviewBreakdown.staff[0] = data[0].staff;
+		reviewBreakdown.staff[1] = hotel_id;
+	}
+
+	$("#wifi-" + hotel_id).text(data[0].wifi);
+
+	if (data[0].wifi > reviewBreakdown.wifi[0]){
+		if (reviewBreakdown.wifi[1]) {
+			$("#wifi-" + reviewBreakdown.wifi[1]).css('background-color', 'transparent');
+		}
+		$("#wifi-" + hotel_id).css('background-color', '#FFDF00');
+		reviewBreakdown.wifi[0] = data[0].wifi;
+		reviewBreakdown.wifi[1] = hotel_id;
+	}
+
+};
+
+function getHotelReviewsBreakdownOnError() {
+	console.log('inside get reviews breakdown - error');
+};
 
