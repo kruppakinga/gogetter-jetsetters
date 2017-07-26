@@ -28,8 +28,8 @@ body {
 input {
   position: absolute;
   z-index: 100;
-  top: 60px;
-  right: 45px;
+  top: 65px;
+  right: 30px;
 }
 
 a.nav-expander {
