@@ -155,3 +155,7 @@ body.nav-expanded {
   max-height: 677px;
   padding: 0;
 }
+
+.compare-props-text {
+  font-weight: bold;
+}
