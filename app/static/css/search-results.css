@@ -62,7 +62,7 @@ a.nav-expander {
 
 }
 
-.nav-expander {
+#nav-expander {
   z-index: 4000;
 }
 
@@ -73,7 +73,7 @@ a.nav-expander:hover {
 a.nav-expander.fixed {
   position: fixed;
   bottom: 0;
-  height: 70px;
+  height: 5px;
   box-shadow: 2px 2px 2px #DEE5E9;
   border: 0.5px solid #DEE5E9;
 }
