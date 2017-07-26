@@ -65,7 +65,7 @@ a.nav-expander:hover {
 a.nav-expander.fixed {
   position: fixed;
   bottom: 0;
- box-shadow: 2px 2px 2px #DEE5E9;
+  box-shadow: 2px 2px 2px #DEE5E9;
   border: 0.5px solid #DEE5E9;
 }
 
@@ -97,6 +97,38 @@ a.nav-expander.fixed {
 
 .nav-expanded .shelf-container {
   height: 20px;
+}
+
+.tooltip-inner {
+  background-color: #FFFFFF;
+  opacity: 1!important;
+  color: #999999;
+  font-size: 12px;
+  padding: 3px !important;
+  box-shadow: 2px 2px 2px #999999;
+}
+
+.tooltip {
+  border-radius: 1px;
+  opacity: 1!important;
+}
+
+.tooltip.right {
+  border: #FFFFFF;
+  border-bottom-color: #FFFFFF;
+  border-left-color: #FFFFFF;
+  border-right-color: #FFFFFF;
+  border-top-color: #FFFFFF;
+  opacity: 1 !important;
+}
+
+.tooltip-arrow {
+  border: #FFFFFF;
+  border-bottom-color: #FFFFFF;
+  border-left-color: #FFFFFF;
+  border-right-color: #FFFFFF;
+  border-top-color: #FFFFFF;
+  opacity: 1 !important;
 }
 
 body.nav-expanded {
