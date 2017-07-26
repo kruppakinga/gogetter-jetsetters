@@ -32,6 +32,10 @@ input {
   right: 30px;
 }
 
+.btn-compare {
+  right: 10px;
+}
+
 a.nav-expander {
   background: none repeat scroll 0 0 #FFFFFF;
   color: #003580!important;
@@ -48,7 +52,7 @@ a.nav-expander {
   text-transform: none;
   height: 0;
   transition: height 0.3s ease-in-out 0s;
-  width: 200px;
+  width: 1100px;
   z-index: 12;
 
   transition: height 0.3s ease-in-out 0s;
@@ -65,6 +69,7 @@ a.nav-expander:hover {
 a.nav-expander.fixed {
   position: fixed;
   bottom: 0;
+  height: 70px;
   box-shadow: 2px 2px 2px #DEE5E9;
   border: 0.5px solid #DEE5E9;
 }
@@ -151,7 +156,7 @@ body.nav-expanded {
 }
 
 .screenshot {
-  max-width: 1100px;
+  max-width: 1060px;
   max-height: 677px;
   padding: 0;
 }
