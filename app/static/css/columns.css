@@ -120,3 +120,7 @@ td {
 /*.fa-star-o .staff {
 	display: inline;
 }*/
+
+.fa-external-link-square {
+	float: right;
+}
