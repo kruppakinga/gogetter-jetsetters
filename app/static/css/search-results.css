@@ -62,6 +62,10 @@ a.nav-expander {
 
 }
 
+.nav-expander {
+  z-index: 4000;
+}
+
 a.nav-expander:hover {
   cursor: pointer;
 }
