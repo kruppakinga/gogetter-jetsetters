@@ -143,8 +143,15 @@ body.nav-expanded {
   font-weight: 300;
   font-size: 24px;
   padding-right: 10px;
+  cursor: pointer;
 }
 
 .main-menu a:hover .caret {
   border-top-color: #4f5963;
+}
+
+.screenshot {
+  max-width: 1100px;
+  max-height: 677px;
+  padding: 0;
 }

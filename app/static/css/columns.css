@@ -7,10 +7,10 @@ https://bootsnipp.com/snippets/vr6qd*/
   border-bottom: 1px solid transparent;
 }
 
-.title-header h3 {
+/*.title-header h3 {
   font-size: 0.80rem;
   margin: 0;
-}
+}*/
 
 .comparison-table {
   margin-top: 2rem;
@@ -20,3 +20,103 @@ https://bootsnipp.com/snippets/vr6qd*/
   width: 100%;
   margin-bottom: .40rem;
 }
+
+.main-text
+{
+    /*position: absolute;
+    top: 250px;
+    width: 100%;
+    color: #FFF;
+    background: rgba(0,0,0,0.5);*/
+    background-color: #E9F0FA;
+    /*color: #FFF;*/
+}
+
+.card {
+	border: solid 2px #E9F0FA;;
+}
+
+.main-text h6 {
+	margin: 8px;
+}
+
+.rating-col h6 {
+	/*color: #FEBA02;*/
+}
+
+td {
+	width: 160%;
+}
+
+.map {
+	height: 400px;
+	width: 100%;
+}
+
+.carousel-item img {
+	height: 250px; 
+	width: 350px;
+}
+
+.price-col {
+	float: left;
+	margin-left: 0px;
+}
+
+.rating-col {
+	float: right;
+	margin-right: 0px;
+}
+
+.pro-con-div {
+	height: 200px;
+}
+
+.pro-title, .con-title {
+	font-weight: bold;
+}
+
+.pro-text, .con-text {
+	font-style: italic;
+}
+
+.book-button, button.compare {
+	cursor: pointer;
+}
+
+.title-header {
+	background-color: #E9F0FA;
+}
+
+.hotel-name {
+	height: 50px;
+	background-color: #E9F0FA;
+}
+
+.fa-star {
+	color: #FEBA02;
+}
+
+.hideMe {
+	display: none;
+}
+
+#comparison-header {
+	margin-bottom: 25px;
+	color: #fff;
+	background-color: #002861;
+	text-align: center;
+	padding: 5px;
+}
+
+.star-info {
+	margin-right: 8px;
+}
+
+.star-text {
+	color: #808080;
+}
+
+/*.fa-star-o .staff {
+	display: inline;
+}*/

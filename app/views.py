@@ -59,7 +59,8 @@ def get_hotel_reviews(hotel_id):
 		rev_result.append ( { 'headline' : r.headline ,
 							  'pro' : r.pro,
 							  'con' : r.con,
-							  'avg_score' : r.avg_score
+							  'avg_score' : r.avg_score,
+							  'hotel_id' : hotel_id
 							} )
 
 	return jsonify(  rev_result  )
@@ -70,7 +71,8 @@ def get_hotel_photos(hotel_id):
 	pics_result = []
 	for pic in hotel.pics:
 		pics_result.append ( { 'url' : pic.url ,
-							   'url_max_300' : pic.url_max_300
+							   'url_max_300' : pic.url_max_300,
+							   'hotel_id' : hotel_id
 							} )
 
 	return jsonify(  pics_result  )
@@ -88,7 +90,8 @@ def get_hotel_review_breakdown(hotel_id):
 							  'location' : r.location,
 							  'staff' : r.staff,
 							  'value' : r.value,
-							  'wifi' : r.wifi
+							  'wifi' : r.wifi,
+							  'hotel_id' : hotel_id
 							} )
 	return jsonify(  rev_result  )
 
