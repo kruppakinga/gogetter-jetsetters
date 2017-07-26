@@ -31,3 +31,88 @@ input {
   top: 60px;
   right: 45px;
 }
+
+a.nav-expander {
+  background: none repeat scroll 0 0 #FFFFFF;
+  color: #003580!important;
+  display: block;
+  font-size: 15px;
+  font-weight: 400;
+  height: 50px;
+  margin-left: 70px;
+  padding: 1em 1.6em 2em;
+  position: absolute;
+  border-radius: 5px;
+  margin-bottom: -5px;
+  text-decoration: none;
+  text-transform: none;
+  height: 0;
+  transition: height 0.3s ease-in-out 0s;
+  width: 200px;
+  z-index: 12;
+
+  transition: height 0.3s ease-in-out 0s;
+  -webkit-transition: height 0.3s ease-in-out 0s;
+  -moz-transition: height 0.3s ease-in-out 0s;
+  -o-transition: height 0.3s ease-in-out 0s;
+
+}
+
+a.nav-expander:hover {
+  cursor: pointer;
+}
+
+a.nav-expander.fixed {
+  position: fixed;
+  bottom: 0;
+ box-shadow: 2px 2px 2px #DEE5E9;
+  border: 0.5px solid #DEE5E9;
+}
+
+.nav-expanded a.nav-expander.fixed {
+  height: 550px;
+  bottom: 0;
+  width: 1100px;
+  box-shadow: 3px 3px 2px #DEE5E9;
+  border: 0.5px solid #DEE5E9;
+  z-index: 4000;
+}
+
+.shelf-container {
+  z-index: 3000;
+  background: #FFFFFF;
+  color: #FFFFFF;
+  display: block;
+  overflow: auto;
+  position: fixed;
+  font-size: 15px;
+  width: 40em;
+  z-index: 2000;
+
+  transition: bottom 0.3s ease-in-out 0s;
+  -webkit-transition: bottom 0.3s ease-in-out 0s;
+  -moz-transition: right 0.3s ease-in-out 0s;
+  -o-transition: right 0.3s ease-in-out 0s;
+}
+
+.nav-expanded .shelf-container {
+  height: 20px;
+}
+
+body.nav-expanded {
+  margin-left: 0em;
+  transition: right 0.4s ease-in-out 0s;
+  -webkit-transition: bottom 0.4s ease-in-out 0s;
+  -moz-transition: right 0.4s ease-in-out 0s;
+  -o-transition: right 0.4s ease-in-out 0s;
+}
+
+#nav-close {
+  font-weight: 300;
+  font-size: 24px;
+  padding-right: 10px;
+}
+
+.main-menu a:hover .caret {
+  border-top-color: #4f5963;
+}
