@@ -114,13 +114,10 @@ def compare():
 			price = get_available_hotel(checkin, checkout, hotel.code) 
 			static_data.update(price)
 			result.append ( static_data )
-	print ( result )
 	return jsonify( result )
 
 
 def get_available_hotel( checkin, checkout, hotel_id):
-	print(checkin)
-	print(checkout)
 	url = 'https://distribution-xml.booking.com/json/getHotelAvailabilityV2?checkin={}&checkout={}&room1=A,A&output=room_details,hotel_details&hotel_ids={}'.format(checkin, checkout,  hotel_id)
 	print (url)
 	hotel = requests.get(url, auth=(user, pwd)).json()
